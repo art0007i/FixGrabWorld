@@ -1,5 +1,5 @@
 using HarmonyLib;
-using NeosModLoader;
+using ResoniteModLoader;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -9,11 +9,11 @@ using FrooxEngine;
 
 namespace FixGrabWorld
 {
-    public class FixGrabWorld : NeosMod
+    public class FixGrabWorld : ResoniteMod
     {
         public override string Name => "FixGrabWorld";
         public override string Author => "art0007i";
-        public override string Version => "1.0.0";
+        public override string Version => "2.0.0";
         public override string Link => "https://github.com/art0007i/FixGrabWorld/";
         public override void OnEngineInit()
         {
@@ -29,7 +29,7 @@ namespace FixGrabWorld
                 var lookfor = typeof(ILocomotionReference).GetMethod("get_DirectionReference");
                 foreach(var code in codes)
                 {
-                    if(code.operand == lookfor)
+                    if(code.operand is MethodInfo mi && mi == lookfor)
                     {
                         code.operand = typeof(ILocomotionReference).GetMethod("get_GripReference");
                     }
